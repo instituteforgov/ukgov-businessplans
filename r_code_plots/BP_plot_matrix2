@@ -1,0 +1,10 @@
+dev.new()
+ggplot() +
+	geom_bar(aes(y = dp_overdueend,x = dept_abbrev),data=dept2dates,fill = '#ff2930',position = position_dodge()) +
+	geom_bar(aes(y = dp_netoverduestart,x = dept_abbrev),data=dept2dates,fill = '#38b3ff',position = position_dodge()) +
+	scale_y_continuous(labels = percent_format()) +
+	coord_flip() +
+	opts(title = 'Overdue start',plot.background = theme_rect(fill = '#dbdbdb',colour = '#ffffff'),plot.title = theme_text(family = 'NewCenturySchoolbook',size = 18.0,vjust = 1.0),axis.line = theme_blank(),axis.ticks = theme_blank(),axis.title.x = theme_blank(),legend.background = theme_rect(fill = '#ffffff',colour = '#ffffff'),panel.background = theme_rect(fill = '#ffffff',colour = '#ffffff'),panel.border = theme_blank(),
+panel.grid.major = theme_blank(),panel.grid.minor = theme_blank()) +
+	ylab(label = '% of actions overdue to start, of those introduced in this refresh') +
+	xlab(label = ' ')

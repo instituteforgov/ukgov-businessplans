@@ -1,0 +1,19 @@
+report_statusmatrix_dept <- read.table("/Users/petrbouchal/Documents/Research Projects/Business Plans/output/reports/report_statusmatrix_dept.csv",header=T,sep=",",quote="\"")
+report_statusmatrix_dept[c("Count2")] <- recode.variables(report_statusmatrix_dept[c("Count")] , "0 -> NA;")
+
+# reorder both status factors here
+
+report_statusmatrix_dept$Start.Status<-factor(report_statusmatrix_dept$Start.Status,levels=c("Overdue","Late","On time","Early","Not due","Carried over","TBC"),ordered=TRUE)
+report_statusmatrix_dept$End.Status<-factor(report_statusmatrix_dept$End.Status,levels=c("Overdue","Late","On time","Early","Ongoing","Not due","TBC"),ordered=TRUE)
+
+# bp_status<-subset(report_statusmatrix_dept,(Date  == "2012-07-22") | (Date == "2012-07-30"))
+bp_status_latest<-subset(report_statusmatrix_dept,(Date  == "2012-07-22"))
+
+dev.new()
+ggplot() +
+	geom_tile(aes(x = Start.Status,y = End.Status,fill = TotalConcern),data=bp_status_latest) +
+	facet_wrap(facets = ~Dept, scales = 'free_x') +
+	coord_flip() +
+	opts(axis.ticks = theme_blank(),axis.text.x = theme_text(hjust = 1.0,angle = 90.0),panel.background = theme_blank()) +
+	geom_text(aes(x = Start.Status,y = End.Status,label = Count2),data=bp_status_latest,size = 4.0,parse = TRUE) +
+	scale_fill_gradient(guide = guide_legend(),low = '#fffefc',high = '#ff000d')

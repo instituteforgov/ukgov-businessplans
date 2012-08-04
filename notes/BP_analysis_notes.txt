@@ -1,0 +1,94 @@
+sqldf - allows you to use SQL on R data frames
+
+if finished, break into
+- completed on time (green) [green]
+- completed on time but started late (amber green) [green] [?]
+- completed after deadline but started on time (amber red) [red]
+- completed after deadline and started late (red) [red]
+
+if not finished & past start date, break into
+- started, on track (green) [green]
+- started late but not overdue (amber green) [amber]
+- not started and should have been started but not overdue (amber) [amber]
+- started on time but overdue (amber red) [red]
+- started late and overdue (red) [red]
+- overdue and past completion date (red) [red]
+
+- not due to start (grey)
+
+
+[Simple scheme]
+Completed:
+Green: completed on time
+Red: completed late
+
+Not completed & due to start
+Green: started on time
+Amber: Overdue start
+Red: Past completion date
+
+Not due to start:
+Grey: not due to start
+
+[This month]
+- X completed on time
+- X completed but were late
+- X is currently overdue
+- X is due to start this month
+- x should have started by now but haven't
+
+Percentage after election? and after next?
+- per department
+
+Calculate start and end dates for actions and priorities - from subactions
+
+In python, create two columns for scheduled start month - one for graphing (1st) and one for calculations of due/overdue (last of the month). An action is seen as ongoing in the month in which it starts, but is not seen as overdue if it starts anytime on or before the last day of the month
+
+
+
+Alternative breakdown:
+Completed
+- on time [green]
+- started late but completed on time [amber]
+- completed late (this includes two categories: late and regular starts) [red]
+
+In progress
+- started late [amber]
+- started late and overdue [red] 
+- started on time [green]
+
+Inactive
+- not due to start [green/gray]
+- start overdue [amber]
+- past completion date [red]
+
+And yet another breakdown
+Due to end
+- started but overdue: amber
+- started and finished: green
+- not started and overdue: red
+Due to start but not due to end
+- not started but not overdue: amber
+- started on time and not overdue: green
+Not due to start
+
+And yet another breakdown
+Start:
+- not due
+- overdue or late
+- accomplished on time
+
+Finish
+- not due
+- overdue or late
+- accomplished on time 
+
+
+Minimalist:
+:Finish
+- not due: grey
+- not due but running, started on time: blue
+- not due but running, started late: purple
+- overdue or late or not started: red
+- accomplished on time: green
+- late start but accomplished on time: amber

@@ -1,0 +1,3 @@
+# Subsetting on match with factor
+deptsnap2$var2 <- as.character(deptsnap2$variable)
+deptsnap2.sub<-subset(deptsnap2,grepl("dp_", deptsnap2$var2))
