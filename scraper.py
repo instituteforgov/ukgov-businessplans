@@ -91,12 +91,6 @@ header = ['dept_abb', 'dept_name', 'dept_id', 'dept_url', 'priority_body', 'prio
           'subaction_actual_start_orig', 'subaction_actual_end_orig', \
           'datetime', 'date']
 
-if writecsv == 1:
-    writer.writerow(header)
-
-    rawdir = '../output/Raw_' + filedatestringlong
-    os.makedirs(rawdir)
-
 # Get list of departments
 base_url = 'http://transparency.number10.gov.uk/api/'
 urldepts = base_url + 'departments'
@@ -104,7 +98,6 @@ try:
     depts0 = urllib2.urlopen(urldepts)
 except IOError:
     print('ERROR: API not available on initial call for department list.')
-    writecsv = 0
     raise
 depts = depts0.read()
 deptsJ = json.loads(depts)
@@ -116,9 +109,6 @@ def savexml (filename, url):
     rawstore1.write(deptsxml)
     rawstore1.close()
     return "OK"
-
-if writecsv:
-    savexml('departments', urldepts)
 
 #get properties of each department
 for dept in deptsJ:
@@ -137,9 +127,6 @@ for dept in deptsJ:
     priorities = priorities0.read()
     prioritiesJ = json.loads(priorities)
 
-    if writecsv:
-        savexml('priorities_' + deptdict[dept_name], urlpriorities)
-
     #pprint.pprint(prioritiesJ)
     # get properties of each priority
     for priority in prioritiesJ:
@@ -156,9 +143,6 @@ for dept in deptsJ:
             raise
         actions = actions0.read()
         actionsJ = json.loads(actions)
-
-        if writecsv:
-            savexml('actions_dept_' + deptdict[dept_name] + '_priority_' + str(priority_id), urlactions)
 
         # get properties of each action
         for action in actionsJ:
