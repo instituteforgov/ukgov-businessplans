@@ -1,3 +1,4 @@
+from __future__ import unicode_literals, print_function, division
 __author__ = 'petrbouchal'
 
 """
@@ -13,7 +14,6 @@ and ideally with over-time analytics as well
 
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals, print_function, division
 import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
