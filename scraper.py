@@ -19,8 +19,6 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 # TODO: finish readme
 
-writecsv = 1 # these switches let you control what is done:
-
 analytics = 0 # 0 to skip writing CSV; set to 0 for debugging download. Must be 0 for scraperwiki deployment
 timeseriesanalytics = 0 # 1 to run aggregate analytics; set to 0 for debugging download/raw data write. Must be 0 for scraperwiki deployment
 checkchanges = 0 # 1 to run time-series analytics. Must be 0 for scraperwiki deployment
@@ -36,7 +34,6 @@ from bs4 import BeautifulSoup
 #import time
 from datetime import datetime
 from datetime import timedelta
-import csv
 import json
 import urllib2
 import re
@@ -53,14 +50,6 @@ datestring = datetime.strftime(today, '%Y-%m-%d')
 datetimestring = datetime.strftime(now, '%Y-%m-%d %H:%M:%S')
 filedatestring = datetime.strftime(now, '%Y%m%d_%H%M')
 filedatestringlong = datetime.strftime(now, '%Y%m%d_%H%M%S')
-
-# prepare CSV for writing
-if writecsv == 1:
-    csvout = "../output/BusinessPlans" + '_' + filedatestring + '.csv'
-    csvout_final = '../output/BusinessPlans_current.csv'
-    csvfile = open(csvout, 'wb')
-    writer = csv.writer(csvfile, doublequote=True)
-    # TODO: find way to push output to github directly, or alternatively Dropbox
 
 # this list will be used to store all rows
 alldata = []
