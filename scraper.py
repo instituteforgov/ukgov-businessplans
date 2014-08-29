@@ -40,6 +40,7 @@ import re
 import shutil
 import os
 from pprint import pprint
+import sqlite
 
 #from pprint import pprint
 now = datetime.now()
