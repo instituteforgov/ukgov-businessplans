@@ -40,7 +40,7 @@ import re
 import shutil
 import os
 from pprint import pprint
-import sqlite
+import sqlite3
 
 #from pprint import pprint
 now = datetime.now()
@@ -508,4 +508,4 @@ for dept in deptsJ:
 
                 rowDict = dict(zip(header, row0))
 
-                sqlite.save(unique_keys=['subaction_id', 'datetime'], data=rowDict, table_name='data')
+                sqlite3.save(unique_keys=['subaction_id', 'datetime'], data=rowDict, table_name='data')
