@@ -52,6 +52,22 @@ datetimestring = datetime.strftime(now, '%Y-%m-%d %H:%M:%S')
 filedatestring = datetime.strftime(now, '%Y%m%d_%H%M')
 filedatestringlong = datetime.strftime(now, '%Y%m%d_%H%M%S')
 
+# DB setup
+
+db = sqlite.connect('data.sqlite')
+cursor = db.cursor()
+cursor.execute("""CREATE TABLE data
+                    (dept_abb, dept_name, dept_id, dept_url, priority_body, priority_id, priority_strapline, action_id, action_body,
+                    action_notes, schedule_start_date, schedule_end_date, actual_start_date, actual_end_date, subaction_id,
+                    subaction_body, subaction_notes, subaction_schedule_start_date, subaction_schedule_end_date,
+                    act_start, act_end, sched_start_endmonth, sched_end_endmonth,
+                    started, ended, start_status, end_status, startearlyby, startedlateby, startoverdueby,
+                    endearlyby, endedlateby, endedoverdueby,
+                    carriedover, subaction_schedule_start_date_orig, subaction_schedule_end_date_orig,
+                    subaction_actual_start_date_orig, subaction_actual_end_date_orig,
+                    datetimestring, datestring)
+                """)
+
 # this list will be used to store all rows
 alldata = []
 
@@ -473,8 +489,7 @@ for dept in deptsJ:
                        act_start, act_end, sched_start_endmonth, sched_end_endmonth, \
                        started, ended, start_status, end_status, startearlyby, startedlateby, startoverdueby, \
                        endearlyby, endedlateby, endedoverdueby, \
-                       carriedover, # add new stuff here - it won't throw off the counting of items in the analytics\
-                       subaction_schedule_start_date_orig, subaction_schedule_end_date_orig, \
+                       carriedover, subaction_schedule_start_date_orig, subaction_schedule_end_date_orig, \
                        subaction_actual_start_date_orig, subaction_actual_end_date_orig, \
                        datetimestring, datestring]
 
@@ -508,4 +523,4 @@ for dept in deptsJ:
 
                 rowDict = dict(zip(header, row0))
 
-                sqlite3.save(unique_keys=['subaction_id', 'datetime'], data=rowDict, table_name='data')
+                cursor.execute("""INSERT INTO data rowDict""")
