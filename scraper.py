@@ -41,6 +41,7 @@ import shutil
 import os
 from pprint import pprint
 import sqlite3
+import litepiesql
 
 #from pprint import pprint
 now = datetime.now()
@@ -54,21 +55,9 @@ filedatestringlong = datetime.strftime(now, '%Y%m%d_%H%M%S')
 
 # DB setup
 
-db = sqlite.connect('data.sqlite')
+db = sqlite3.connect('data.sqlite')
 cursor = db.cursor()
-cursor.execute("""CREATE TABLE data
-                    (dept_abb, dept_name, dept_id, dept_url, priority_body, priority_id, priority_strapline, action_id, action_body,
-                    action_notes, schedule_start_date, schedule_end_date, actual_start_date, actual_end_date, subaction_id,
-                    subaction_body, subaction_notes, subaction_schedule_start_date, subaction_schedule_end_date,
-                    act_start, act_end, sched_start_endmonth, sched_end_endmonth,
-                    started, ended, start_status, end_status, startearlyby, startedlateby, startoverdueby,
-                    endearlyby, endedlateby, endedoverdueby,
-                    carriedover, subaction_schedule_start_date_orig, subaction_schedule_end_date_orig,
-                    subaction_actual_start_date_orig, subaction_actual_end_date_orig,
-                    datetimestring, datestring)
-                """)
 
-# this list will be used to store all rows
 alldata = []
 
 # setup structure for assigning abbreviations to department names
@@ -97,17 +86,31 @@ header = ['dept_abb', 'dept_name', 'dept_id', 'dept_url', 'priority_body', 'prio
           'schedule_start_date', 'schedule_end_date', 'actual_start_date', 'actual_end_date', 'subaction_id', 'subaction_body', \
           'subaction_notes', 'subaction_schedule_start_date', 'subaction_schedule_end_date', 'act_start', \
           'act_end', 'sched_start_endmonth', 'sched_end_endmonth', \
-          'sched_duration', 'act_duration', 'duration_sofar', 'delta_duration', \
           'started', 'ended', 'start_status', 'end_status', 'startearlyby', 'startedlateby', 'startoverdueby', \
-          'endearlyby', 'endedlateby', 'endoverdueby', \
-          'duetostartthismonth', 'duetoendthismonth', 'duetostartwithin30days', 'duetoendwithin30days', \
-          'duetostartlastmonth', 'duetoendinlast30days', 'duetoendlastmonth', 'duetoendinlast30days', \
-          'startedthismonth', 'startedinlast30days', 'endedthismonth', 'endedinlast30days', \
+          'endearlyby', 'endedlateby', 'endedoverdueby', \
           'carriedover', \
           'subaction_schedule_start_orig', 'subaction_schedule_end_orig', \
           'subaction_actual_start_orig', 'subaction_actual_end_orig', \
           'datetime', 'date']
 
+if len(cursor.execute("""SELECT name FROM sqlite_master WHERE type='table' AND name='data';""").fetchall()) == 0:
+    cursor.execute("""CREATE TABLE data
+                        (dept_abb, dept_name, dept_id, dept_url, priority_body, priority_id, priority_strapline, action_id, action_body,
+                        action_notes, schedule_start_date, schedule_end_date, actual_start_date, actual_end_date, subaction_id,
+                        subaction_body, subaction_notes, subaction_schedule_start_date, subaction_schedule_end_date,
+                        act_start, act_end, sched_start_endmonth, sched_end_endmonth,
+                        started, ended, start_status, end_status, startearlyby, startedlateby, startoverdueby,
+                        endearlyby, endedlateby, endedoverdueby,
+                        carriedover, subaction_schedule_start_orig, subaction_schedule_end_orig,
+                        subaction_actual_start_orig, subaction_actual_end_orig,
+                        datetime, date)
+                    """)
+db.commit()
+db.close()
+
+db = litepiesql.Database('data.sqlite')
+
+# this list will be used to store all rows
 # Get list of departments
 base_url = 'http://transparency.number10.gov.uk/api/'
 urldepts = base_url + 'departments'
@@ -523,4 +526,5 @@ for dept in deptsJ:
 
                 rowDict = dict(zip(header, row0))
 
-                cursor.execute("""INSERT INTO data rowDict""")
+                db.insert('data',rowDict)
+db.close()
