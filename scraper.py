@@ -17,16 +17,6 @@ and ideally with over-time analytics as well
 import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
-# TODO: finish readme
-
-analytics = 0 # 0 to skip writing CSV; set to 0 for debugging download. Must be 0 for scraperwiki deployment
-timeseriesanalytics = 0 # 1 to run aggregate analytics; set to 0 for debugging download/raw data write. Must be 0 for scraperwiki deployment
-checkchanges = 0 # 1 to run time-series analytics. Must be 0 for scraperwiki deployment
-codebook = 0 # set to 1 to check changes in duedates across downloads.
-log = 1 # 1 to generate codebook
-toscraperwiki = 0 # 1 to log
-# 1 for scraperwiki output
-
 
 from calendar import monthrange
 from bs4 import BeautifulSoup
@@ -37,9 +27,6 @@ from datetime import timedelta
 import json
 import urllib2
 import re
-import shutil
-import os
-from pprint import pprint
 import sqlite3
 import litepiesql
 
@@ -61,24 +48,26 @@ cursor = db.cursor()
 alldata = []
 
 # setup structure for assigning abbreviations to department names
-deptdict = {}
-deptdict['Department for Communities and Local Government'] = 'DCLG'
-deptdict['Ministry of Justice'] = 'MoJ'
-deptdict['Ministry of Defence'] = 'MoD'
-deptdict['Cabinet Office'] = 'CO'
-deptdict['Department of Energy and Climate Change'] = 'DECC'
-deptdict['Department for Education'] = 'DfE'
-deptdict['Department for Business, Innovation and Skills'] = 'BIS'
-deptdict['Department for Transport'] = 'DfT'
-deptdict['Her Majesty\'s Revenue and Customs'] = 'HMRC'
-deptdict['Department for Work and Pensions'] = 'DWP'
-deptdict['Department of Health'] = 'DH'
-deptdict['Foreign and Commonwealth Office'] = 'FCO'
-deptdict['Her Majesty\'s Treasury'] = 'HMT'
-deptdict['Department for Environment, Food and Rural Affairs'] = 'Defra'
-deptdict['Department for International Development'] = 'DfID'
-deptdict['Department for Culture, Media and Sport'] = 'DCMS'
-deptdict['Home Office'] = 'HO'
+deptdict = {
+          'Department for Communities and Local Government': 'DCLG',
+          'Ministry of Justice': 'MoJ',
+          'Ministry of Defence': 'MoD',
+          'Cabinet Office': 'CO',
+          'Department of Energy and Climate Change': 'DECC',
+          'Department for Education': 'DfE',
+          'Department for Business, Innovation and Skills': 'BIS',
+          'Department for Transport': 'DfT',
+          'Her Majesty\'s Revenue and Customs': 'HMRC',
+          'Department for Work and Pensions': 'DWP',
+          'Department of Health': 'DH',
+          'Foreign and Commonwealth Office': 'FCO',
+          'Her Majesty\'s Treasury': 'HMT',
+          'Department for Environment, Food and Rural Affairs': 'Defra',
+          'Department for International Development': 'DfID',
+          'Department for Culture, Media and Sport': 'DCMS',
+          'Home Office': 'HO'
+          }
+
 
 # build header
 header = ['dept_abb', 'dept_name', 'dept_id', 'dept_url', 'priority_body', 'priority_id', \
@@ -110,7 +99,6 @@ db.close()
 
 db = litepiesql.Database('data.sqlite')
 
-# this list will be used to store all rows
 # Get list of departments
 base_url = 'http://transparency.number10.gov.uk/api/'
 urldepts = base_url + 'departments'
@@ -121,14 +109,6 @@ except IOError:
     raise
 depts = depts0.read()
 deptsJ = json.loads(depts)
-
-
-def savexml (filename, url):
-    rawstore1 = open('./' + rawdir + '/' + filename + '.xml', 'wb')
-    deptsxml = urllib2.urlopen(url + '.xml').read()
-    rawstore1.write(deptsxml)
-    rawstore1.close()
-    return "OK"
 
 #get properties of each department
 for dept in deptsJ:
@@ -147,7 +127,6 @@ for dept in deptsJ:
     priorities = priorities0.read()
     prioritiesJ = json.loads(priorities)
 
-    #pprint.pprint(prioritiesJ)
     # get properties of each priority
     for priority in prioritiesJ:
         priority_body = priority['body']
