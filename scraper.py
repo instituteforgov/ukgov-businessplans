@@ -47,6 +47,10 @@ import litepiesql
 now = datetime.now()
 today = datetime.today()
 
+if today.weekday() !=4:
+    print('It\'s not Friday, and I only scrape weekly. Exiting.')
+    raise SystemExit
+
 # build date and time strings
 datestring = datetime.strftime(today, '%Y-%m-%d')
 datetimestring = datetime.strftime(now, '%Y-%m-%d %H:%M:%S')
