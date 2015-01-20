@@ -1,4 +1,4 @@
-Readme: UK Government Business Plan data retrieval & analytics
+UK Government Business Plan data retrieval & analytics
 ====================
 
  The code in this repository collects and analyses data on the UK Government's progress against its own Structural Reform Plan actions. This was used in several [Whitehall Monitor](http://instituteforgoverment.org.uk/our-work/whitehall-monitor) bulletins and Whitehall Monitor 2013 and 2014 annual reports published by the [Institute for Government](http://instituteforgoverment.org.uk). Code by [@petrbouchal](http://github.com/petrbouchal).
