@@ -1,9 +1,14 @@
 UK Government Business Plan data retrieval & analytics
 ====================
 
- The code in this repository collects and analyses data on the UK Government's progress against its own Structural Reform Plan actions. This was used in several [Whitehall Monitor](http://instituteforgoverment.org.uk/our-work/whitehall-monitor) bulletins and Whitehall Monitor 2013 and 2014 annual reports published by the [Institute for Government](http://instituteforgoverment.org.uk).
+** Note that as of November 2015, the government API is no longer maintained and all the resources related to the UK Government Business Plans have been [archived](http://webarchive.nationalarchives.gov.uk/*/http://transparency.number10.gov.uk/). This is a result of the government's decision to build a new system for managing departmental priorities after the 2015 election.**
 
-Latest data and analysis from the Institute for Government using this dataset: http://www.instituteforgovernment.org.uk/publication/measuring-performance 
+**As a result, this tool is obsolete and does not update but the historical data can still be used.**
+
+The code in this repository collects and analyses data on the UK Government's progress against its own Structural Reform Plan actions. This was used in several [Whitehall Monitor](http://instituteforgoverment.org.uk/our-work/whitehall-monitor) bulletins and Whitehall Monitor 2013 and 2014 annual reports published by the [Institute for Government](http://instituteforgoverment.org.uk).
+
+Latest data and analysis from the Institute for Government using this dataset:
+http://www.instituteforgovernment.org.uk/performance 
  
 Code by [@petrbouchal](http://github.com/petrbouchal).
 
