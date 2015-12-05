@@ -1,7 +1,7 @@
 UK Government Business Plan data retrieval & analytics
 ====================
 
-** Note that as of November 2015, the government API is no longer maintained and all the resources related to the UK Government Business Plans have been [archived](http://webarchive.nationalarchives.gov.uk/*/http://transparency.number10.gov.uk/). This is a result of the government's decision to build a new system for managing departmental priorities after the 2015 election.**
+**Note that as of November 2015, the government API is no longer maintained and all the resources related to the UK Government Business Plans have been [archived](http://webarchive.nationalarchives.gov.uk/*/http://transparency.number10.gov.uk/). This is a result of the government's decision to build a new system for managing departmental priorities after the 2015 election.**
 
 **As a result, this tool is obsolete and does not update but the historical data can still be used.**
 
